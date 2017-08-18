@@ -1,5 +1,6 @@
 package br.jus.tse.eleitoral.curso;
 
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,21 +8,17 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
 public class TitulonetExteriorTest {
-	public static void main(String[] args) {
-		//System.setProperty("webdriver.firefox.bin", "/Applications/Firefox");
 
-		WebDriver driver = 
-				//new FirefoxDriver();
-				//new SafariDriver();
-				new ChromeDriver();
-		
+	@Test
+	public void caminhoFeliz() {
+		WebDriver driver = new ChromeDriver();
+
 		String paginaInicial = "http://apps.tse.jus.br/titulonet2/paginas/requerimentoTitulo/mensagemInicial.faces";
 		System.out.println("Página 1 [" + paginaInicial + "]");
 		driver.get(paginaInicial);
-		WebElement element = driver
-				.findElement(By.id("RequerimentoAtualizacaoConfirmacaoRequerimentoForm:j_idt26"));
+		WebElement element = driver.findElement(By.id("RequerimentoAtualizacaoConfirmacaoRequerimentoForm:j_idt26"));
 		element.click();
-		
+
 		System.out.println("Página 2 [" + driver.getCurrentUrl() + "]");
 		Select tituloInput = new Select(driver.findElement(By.id("form:titulo_input")));
 		tituloInput.selectByValue("TENHO_E_SEI");
@@ -32,6 +29,6 @@ public class TitulonetExteriorTest {
 		driver.findElement(By.id("form:nomePai")).sendKeys("Alcino José Bohnert");
 		driver.findElement(By.id("form:confirmar")).click();
 
-		//driver.close();
+		driver.close();
 	}
 }

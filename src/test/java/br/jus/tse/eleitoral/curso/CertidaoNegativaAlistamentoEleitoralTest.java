@@ -1,5 +1,6 @@
 package br.jus.tse.eleitoral.curso;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -29,7 +30,15 @@ public class CertidaoNegativaAlistamentoEleitoralTest {
 		driver.findElement(By.name("nomeMae")).sendKeys("Elizabeth Soares Bohnert");
 		driver.findElement(By.name("nomePai")).sendKeys("Alcino José Bohnert");
 		driver.findElement(By.id("consultar")).submit();
-
-		driver.close();
+		
+		if (driver.findElement(By.className("g-recaptcha")) == null) {
+			element = driver.findElement(By.name("mensagens_anchor"));
+			Assert.assertTrue("Está emitindo certidão negativa de alistamento para eleitor cadastrado", element.getText()
+					.contains("CONSTA registro de inscrição perante a Justiça Eleitoral para os dados informados."));
+		} else {
+			Assert.fail("Captcha está habilitado e não se pode testar funcionalidade");
+		}
+			
+		// driver.close();
 	}
 }
